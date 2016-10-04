@@ -1,0 +1,11 @@
+C, Cafeteria, Card
+L, Lab, Card
+I, Library, Card
+T, Teacher's Lounge, Card
+B, Bathroom, Card
+D, Doormatory, Card
+S, Study Hall, Card
+G, Garage, Card
+O, Office, Card
+W, Walkway, Other
+X, Closet, Other 

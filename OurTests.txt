@@ -1,0 +1,5 @@
+We changed the tests to use our own rooms, like, we don't have an observatory so we changed it in the tests to test a different room like the Cafeteria.
+
+Our board is also different in structure, so we looked at our excel sheet and found a door of each direction. We got its index and changed the tests to use those instead.
+
+The rooms also changed, so we found the starting (top left) point of a couple of the rooms and then the found the bottom right of some other rooms. We used those values in the new tests.
