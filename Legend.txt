@@ -3,7 +3,7 @@ L, Lab, Card
 I, Library, Card
 T, Teacher's Lounge, Card
 B, Bathroom, Card
-D, Doormatory, Card
+D, Dormitory, Card
 S, Study Hall, Card
 G, Garage, Card
 O, Office, Card
