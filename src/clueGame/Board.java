@@ -193,4 +193,17 @@ public class Board {
 		}*/
 		
 	}
+	
+	public Set<BoardCell> getAdjList(int x, int y){
+		return null;
+	}
+	
+	public void calcTargets(int x, int y, int distance){
+		
+	}
+	
+	public Set<BoardCell> getTargets(){
+		return null;
+	}
+	
 }
