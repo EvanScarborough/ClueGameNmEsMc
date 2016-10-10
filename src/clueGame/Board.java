@@ -18,6 +18,10 @@ public class Board {
 	
 	static BoardCell[][] board;
 	
+	private Map<BoardCell, Set<BoardCell>> adjMtx;
+	private Set<BoardCell> targets;
+	private Set<BoardCell> visited;
+	
 	public static Board theInstance = new Board();
 	Map<Character, String> myMap;
 	
@@ -35,12 +39,76 @@ public class Board {
 			loadRoomConfig();
 			loadBoardConfig();
 		} catch (BadConfigFormatException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
+		visited = new HashSet<BoardCell>();
+		targets = new HashSet<BoardCell>();
+		adjMtx = new HashMap<BoardCell, Set<BoardCell>>();
 		
-		
+		calcAdjacencies();
+	}
+	
+	private void calcAdjacencies(){
+		for(int i = 0; i < numRows; i++){
+			for(int j = 0; j < numColumns; j++){
+				adjMtx.put(getCellAt(i,j), new HashSet<BoardCell>());
+				
+				if(getCellAt(i,j).doorDir == DoorDirection.DOWN){
+					adjMtx.get(getCellAt(i,j)).add(getCellAt(i+1,j));
+					continue;
+				}
+				if(getCellAt(i,j).doorDir == DoorDirection.UP){
+					adjMtx.get(getCellAt(i,j)).add(getCellAt(i-1,j));
+					continue;
+				}
+				if(getCellAt(i,j).doorDir == DoorDirection.LEFT){
+					adjMtx.get(getCellAt(i,j)).add(getCellAt(i,j-1));
+					continue;
+				}
+				if(getCellAt(i,j).doorDir == DoorDirection.RIGHT){
+					adjMtx.get(getCellAt(i,j)).add(getCellAt(i,j+1));
+					continue;
+				}
+				if(getCellAt(i,j).initial != 'W'){
+					continue;
+				}
+				if(isValid(i-1,j)){ //Cell Above
+					if((getCellAt(i-1,j).initial == 'W' || getCellAt(i-1,j).doorDir == DoorDirection.DOWN)){
+						adjMtx.get(getCellAt(i,j)).add(getCellAt(i-1,j));
+					}
+				}
+				if(isValid(i+1,j)){ //Cell Below
+					if((getCellAt(i+1,j).initial == 'W' || getCellAt(i+1,j).doorDir == DoorDirection.UP)){
+						adjMtx.get(getCellAt(i,j)).add(getCellAt(i+1,j));
+					}
+				}
+				if(isValid(i,j-1)){ //To the Left
+					if((getCellAt(i,j-1).initial == 'W' || getCellAt(i,j-1).doorDir == DoorDirection.RIGHT)){
+						adjMtx.get(getCellAt(i,j)).add(getCellAt(i,j-1));
+					}
+				}
+				if(isValid(i,j+1)){ //To the Right
+					if((getCellAt(i,j+1).initial == 'W' || getCellAt(i,j+1).doorDir == DoorDirection.LEFT)){
+						adjMtx.get(getCellAt(i,j)).add(getCellAt(i,j+1));
+					}
+				}
+				
+			}
+		}
+	}
+	
+	public void printBoard(){
+		for(int y = 0; y < numRows; y++){
+			for(int x = 0; x < numColumns; x++){
+				System.out.print(getCellAt(y,x).initial);
+			}
+			System.out.println();
+		}
+	}
+	
+	private boolean isValid(int y, int x){
+		return x >= 0 && y >= 0 && y < numRows && x < numColumns;
 	}
 	
 	public Map<Character, String> getLegend(){
@@ -54,8 +122,8 @@ public class Board {
 		return numColumns;
 	}
 	
-	public BoardCell getCellAt(int x, int y){
-		return board[x][y];
+	public BoardCell getCellAt(int y, int x){
+		return board[y][x];
 	}
 
 	public void loadRoomConfig() throws BadConfigFormatException{
@@ -194,16 +262,39 @@ public class Board {
 		
 	}
 	
-	public Set<BoardCell> getAdjList(int x, int y){
-		return null;
+	public Set<BoardCell> getAdjList(int y, int x){
+		return adjMtx.get(getCellAt(y,x));
 	}
 	
-	public void calcTargets(int x, int y, int distance){
-		
+	public void calcTargets(int y, int x, int distance){
+		targets.clear();
+		visited.clear();
+		if(y == 25 && x == 20 && distance == 6) System.out.println("!!!!!!!!!!!!!");
+		targetCalc(y,x,distance);
+	}
+	private void targetCalc(int y, int x, int distance){
+		//System.out.println("targetCalc:" + y + " " + x);
+		visited.add(getCellAt(y,x));
+		for (BoardCell bork: getAdjList(y,x)){
+			if(visited.contains(bork)) continue;
+			if(bork.isDoorway()){
+				targets.add(bork);
+				continue;
+			}
+			
+			visited.add(bork);
+			
+			if(distance == 1) targets.add(bork);
+			else targetCalc(bork.y, bork.x, distance - 1);
+			
+			visited.remove(bork);
+		}
 	}
 	
 	public Set<BoardCell> getTargets(){
-		return null;
+		System.out.println();
+		for(BoardCell b:targets) System.out.println(b.y + " " + b.x);
+		return targets;
 	}
 	
 }
