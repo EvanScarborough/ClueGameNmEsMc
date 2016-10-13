@@ -1,0 +1,35 @@
+commit d24a3f4cb98ee3114449aae2947a36c03d5bc2aa
+Author: EvanScarborough <EvanS@Evans-MacBook-Pro.local>
+Date:   Mon Oct 10 13:10:15 2016 -0600
+
+    Completed Tests CB4
+
+commit 08b2989122a0a60c87fb0286b4511a1edb2ec416
+Author: EvanScarborough <EvanS@Evans-MacBook-Pro.local>
+Date:   Sun Oct 9 14:52:52 2016 -0600
+
+    Finished Tests CB3
+
+commit a17181f87a95f34a6f9f9bf348c59822569afc7a
+Author: EvanScarborough <EvanS@Evans-MacBook-Pro.local>
+Date:   Sun Oct 9 13:11:53 2016 -0600
+
+    Update Tests
+
+commit 35fed38e6672e86133860d6f04325886607b8aaa
+Author: EvanScarborough <EvanS@Evans-MacBook-Pro.local>
+Date:   Thu Oct 6 16:14:53 2016 -0600
+
+    Made all tests pass (Clue Board II)
+
+commit 217ae6abe7d676256c6b28d1fd92f9e3a2427fd0
+Author: EvanScarborough <EvanS@evans-mbp.mines.edu>
+Date:   Tue Oct 4 15:48:59 2016 -0600
+
+    Created junit tests for board
+
+commit c92157053649f394e362b311ddfd320e442f604f
+Author: EvanScarborough <EvanS@Evans-MacBook-Pro.local>
+Date:   Tue Oct 4 14:43:59 2016 -0600
+
+    initial_commit
